@@ -1,0 +1,32 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "/Projects/NeuralNetwork-C#/NeuralNetwork/NeuralNetworkConsoleApplication/NeuralNetworkConsoleApplication.csproj",
+    "projectName": "NeuralNetworkConsoleApplication",
+    "projectPath": "/Projects/NeuralNetwork-C#/NeuralNetwork/NeuralNetworkConsoleApplication/NeuralNetworkConsoleApplication.csproj",
+    "outputPath": "/Projects/NeuralNetwork-C#/NeuralNetwork/NeuralNetworkConsoleApplication/obj/",
+    "projectStyle": "PackageReference",
+    "originalTargetFrameworks": [
+      "netcoreapp2.0"
+    ],
+    "frameworks": {
+      "netcoreapp2.0": {
+        "projectReferences": {
+          "/Projects/NeuralNetwork-C#/NeuralNetwork/NeuralNetwork/NeuralNetwork.csproj": {
+            "projectPath": "/Projects/NeuralNetwork-C#/NeuralNetwork/NeuralNetwork/NeuralNetwork.csproj"
+          }
+        }
+      }
+    }
+  },
+  "frameworks": {
+    "netcoreapp2.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "target": "Package",
+          "version": "2.0.0"
+        }
+      }
+    }
+  }
+}
