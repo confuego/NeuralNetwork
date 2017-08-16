@@ -1,8 +1,0 @@
-/Projects/NeuralNetwork-C#/NeuralNetwork/NeuralNetwork/bin/Debug/netstandard2.0/NeuralNetwork.deps.json
-/Projects/NeuralNetwork-C#/NeuralNetwork/NeuralNetwork/bin/Debug/netstandard2.0/NeuralNetwork.dll
-/Projects/NeuralNetwork-C#/NeuralNetwork/NeuralNetwork/bin/Debug/netstandard2.0/NeuralNetwork.pdb
-/Projects/NeuralNetwork-C#/NeuralNetwork/NeuralNetwork/obj/Debug/netstandard2.0/NeuralNetwork.csproj.CoreCompileInputs.cache
-/Projects/NeuralNetwork-C#/NeuralNetwork/NeuralNetwork/obj/Debug/netstandard2.0/NeuralNetwork.AssemblyInfoInputs.cache
-/Projects/NeuralNetwork-C#/NeuralNetwork/NeuralNetwork/obj/Debug/netstandard2.0/NeuralNetwork.AssemblyInfo.cs
-/Projects/NeuralNetwork-C#/NeuralNetwork/NeuralNetwork/obj/Debug/netstandard2.0/NeuralNetwork.dll
-/Projects/NeuralNetwork-C#/NeuralNetwork/NeuralNetwork/obj/Debug/netstandard2.0/NeuralNetwork.pdb
