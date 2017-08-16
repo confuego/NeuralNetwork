@@ -1,15 +1,42 @@
-﻿namespace NeuralNetwork
+﻿using System.Data.Common;
+
+namespace NeuralNetwork
 {
     public class Matrix
     {
-        public int Rows { get; set; }
+        public readonly int[] Dimensions;
         
-        public int Columns { get; set; }
-        
-        public Matrix(int rows, int columns)
+        private int[,] InternalMatrix { get; set; }
+
+        private static int[,] CreateArray(int[] dimensions)
         {
-            Rows = rows;
-            Columns = columns;
+            
+        }
+        
+        public Matrix(params int[] dimensions)
+        {
+            Dimensions = dimensions;
+            InternalMatrix = CreateArray(dimensions);
+        }
+        
+        public static Matrix operator +(Matrix c1, Matrix c2)
+        {
+            return new Matrix(1,1);
+        }
+
+        public static Matrix operator -(Matrix a, Matrix b)
+        {
+            return new Matrix(1, 1);
+        }
+
+        public static Matrix operator *(Matrix a, Matrix b)
+        {
+            return new Matrix(1, 1);
+        }
+
+        public static Matrix operator /(Matrix a, Matrix b)
+        {
+            return new Matrix(1, 1);
         }
     }
 }
