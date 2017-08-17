@@ -7,8 +7,8 @@ namespace NeuralNetworkConsoleApplication
     {
         public static void Main(string[] args)
         {
-            var matrix = new Matrix(1, 1);
-            Console.WriteLine(matrix.Columns);
+            var matrix = new Matrix(2,2,2);
+            Console.WriteLine(matrix.Find(0,0,1));          
         }
     }
 }
