@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9f5167d9-f6b6-4dad-903a-062b690f58a9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/bin/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.dll" afterPath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/bin/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/bin/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.pdb" afterPath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/bin/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/obj/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.dll" afterPath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/obj/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/obj/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.pdb" afterPath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/obj/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetwork/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/.idea.NeuralNetwork/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="9f5167d9-f6b6-4dad-903a-062b690f58a9" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -248,12 +242,12 @@
       <workItem from="1502818705072" duration="177000" />
       <workItem from="1502899596426" duration="2950000" />
       <workItem from="1502988199959" duration="956000" />
-      <workItem from="1503000561152" duration="3442000" />
+      <workItem from="1503000561152" duration="3514000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7795000" />
+    <option name="totallyTimeSpent" value="7867000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -266,13 +260,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="169" y="34" width="1400" height="907" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Errors In Solution" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3293556" sideWeight="0.105" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Unit Tests" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3293556" sideWeight="0.895" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3293556" sideWeight="0.895" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="NuGet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
