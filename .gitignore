@@ -31,3 +31,9 @@ msbuild.wrn
 # Visual Studio 2015
 .vs/
 NeuralNetwork/.idea/
+NeuralNetwork/.idea/.idea.NeuralNetwork/.idea/workspace.xml
+NeuralNetwork/.idea/.idea.NeuralNetwork/.idea/workspace.xml
+NeuralNetwork/NeuralNetworkConsoleApplication/bin/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.dll
+NeuralNetwork/NeuralNetworkConsoleApplication/bin/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.pdb
+NeuralNetwork/NeuralNetworkConsoleApplication/obj/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.dll
+NeuralNetwork/NeuralNetworkConsoleApplication/obj/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.pdb
