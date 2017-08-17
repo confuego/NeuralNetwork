@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9f5167d9-f6b6-4dad-903a-062b690f58a9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetwork/bin/Debug/netstandard2.0/NeuralNetwork.dll" afterPath="$PROJECT_DIR$/NeuralNetwork/bin/Debug/netstandard2.0/NeuralNetwork.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetwork/bin/Debug/netstandard2.0/NeuralNetwork.pdb" afterPath="$PROJECT_DIR$/NeuralNetwork/bin/Debug/netstandard2.0/NeuralNetwork.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetwork/obj/Debug/netstandard2.0/NeuralNetwork.dll" afterPath="$PROJECT_DIR$/NeuralNetwork/obj/Debug/netstandard2.0/NeuralNetwork.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetwork/obj/Debug/netstandard2.0/NeuralNetwork.pdb" afterPath="$PROJECT_DIR$/NeuralNetwork/obj/Debug/netstandard2.0/NeuralNetwork.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/bin/Debug/netcoreapp2.0/NeuralNetwork.dll" afterPath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/bin/Debug/netcoreapp2.0/NeuralNetwork.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/bin/Debug/netcoreapp2.0/NeuralNetwork.pdb" afterPath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/bin/Debug/netcoreapp2.0/NeuralNetwork.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/bin/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.dll" afterPath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/bin/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/bin/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.pdb" afterPath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/bin/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/obj/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.dll" afterPath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/obj/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/obj/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.pdb" afterPath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/obj/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.idea.NeuralNetwork/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/.idea.NeuralNetwork/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetwork/Matrix.cs" afterPath="$PROJECT_DIR$/NeuralNetwork/Matrix.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/Program.cs" afterPath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/Program.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/obj/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.csproj.FileListAbsolute.txt" afterPath="$PROJECT_DIR$/NeuralNetworkConsoleApplication/obj/Debug/netcoreapp2.0/NeuralNetworkConsoleApplication.csproj.FileListAbsolute.txt" />
-    </list>
+    <list default="true" id="9f5167d9-f6b6-4dad-903a-062b690f58a9" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,7 +41,7 @@
         <entry file="file://$PROJECT_DIR$/NeuralNetworkConsoleApplication/Program.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
-              <caret line="10" column="50" lean-forward="false" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="50" />
+              <caret line="10" column="50" lean-forward="true" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="50" />
               <folding>
                 <marker date="1503003472000" expanded="true" signature="6:34" ph="..." />
                 <marker date="1503003472000" expanded="true" signature="77:290" ph="{...}" />
@@ -257,12 +242,12 @@
       <workItem from="1502818705072" duration="177000" />
       <workItem from="1502899596426" duration="2950000" />
       <workItem from="1502988199959" duration="956000" />
-      <workItem from="1503000561152" duration="2805000" />
+      <workItem from="1503000561152" duration="2855000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7158000" />
+    <option name="totallyTimeSpent" value="7208000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -484,7 +469,7 @@
     <entry file="file://$PROJECT_DIR$/NeuralNetworkConsoleApplication/Program.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
-          <caret line="10" column="50" lean-forward="false" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="50" />
+          <caret line="10" column="50" lean-forward="true" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="50" />
           <folding>
             <marker date="1503003472000" expanded="true" signature="6:34" ph="..." />
             <marker date="1503003472000" expanded="true" signature="77:290" ph="{...}" />
