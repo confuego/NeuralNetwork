@@ -6,11 +6,13 @@ namespace NeuralNetwork
 {
     public class Matrix
     {
-        public readonly int[] Dimensions;
-
-        public readonly int CellCount;
+        private int[] InternalDimensions { get; set; }
         
+        public int[] Dimensions => InternalDimensions;
+
         private int[] InternalArray { get; set; }
+        
+        private int[] ColumnConsts { get; set; }
 
         private int IndexOf(IReadOnlyList<int> indexes)
         {
@@ -45,19 +47,25 @@ namespace NeuralNetwork
             return internalIndex;
 
         }
+
+        private void InstantiateArray(int[] dimensions)
+        {
+            InternalDimensions = dimensions;
+            var cellCount = Dimensions.Aggregate(1, (current, t) => current * t);
+            InternalArray = new int[cellCount];
+            
+            for(var i = 0; i < InternalDimensions.Length; i++)
+        }
         
         
         public Matrix(params int[] dimensions)
         {
-            Dimensions = dimensions;
-            CellCount = Dimensions.Aggregate(1, (current, t) => current * t);
-            InternalArray = new int[CellCount];
+            InstantiateArray(dimensions);
         }
 
-        public int Find(params int[] indexes)
+        public int ValueOf(params int[] indexes)
         {
             var idx = IndexOf(indexes);
-            Console.WriteLine(idx);
             return InternalArray[idx];
         }
         
