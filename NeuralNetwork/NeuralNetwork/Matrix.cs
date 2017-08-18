@@ -6,23 +6,24 @@ namespace NeuralNetwork
 {
     public class Matrix
     {
-        private int[] InternalDimensions { get; set; }
+        // ReSharper disable once InconsistentNaming
+        private int[] _dimensions { get; set; }
         
-        public int[] Dimensions => InternalDimensions;
+        public int[] Dimensions => _dimensions;
 
         private int[] InternalArray { get; set; }
         
         private int[] ColumnConsts { get; set; }
 
-        private int IndexOf(IReadOnlyList<int> indexes)
+        private int IndexOf(IReadOnlyList<int> indices)
         {
-            if (Dimensions.Length != indexes.Count)
+            if (Dimensions.Length != indices.Count)
                 throw new IndexOutOfRangeException("Matrix dimensions do not match.");
 
             // ReSharper disable once LoopCanBeConvertedToQuery
-            for (var i = 0; i < indexes.Count; i++)
+            for (var i = 0; i < indices.Count; i++)
             {
-                if (indexes[i] < 0 || indexes[i] > Dimensions[i] - 1)
+                if (indices[i] < 0 || indices[i] > Dimensions[i] - 1)
                 {
                     throw new IndexOutOfRangeException("Index must be one less than it's dimension and greater than 0.");
                 }
@@ -30,17 +31,11 @@ namespace NeuralNetwork
 
             var internalIndex = 0;
 
-            for (var i = 0; i < indexes.Count; i++)
+            // ReSharper disable once LoopCanBeConvertedToQuery
+            for (var i = 0; i < indices.Count; i++)
             {
-                var idx = indexes[i];
-
-                for (var dimIdx = i + 1; dimIdx < Dimensions.Length; dimIdx++)
-                {
-                    var columnCount = Dimensions[dimIdx];
-                    idx *= columnCount;
-                }
-
-                internalIndex += idx;
+                var idx = indices[i];
+                internalIndex += idx * ColumnConsts[i];
 
             }
 
@@ -50,11 +45,19 @@ namespace NeuralNetwork
 
         private void InstantiateArray(int[] dimensions)
         {
-            InternalDimensions = dimensions;
+            _dimensions = dimensions;
+            
             var cellCount = Dimensions.Aggregate(1, (current, t) => current * t);
             InternalArray = new int[cellCount];
-            
-            for(var i = 0; i < InternalDimensions.Length; i++)
+            ColumnConsts = new int[_dimensions.Length];
+
+            var accumulatedConstant = 1;
+            ColumnConsts[_dimensions.Length - 1] = accumulatedConstant;
+            for (var i = _dimensions.Length - 1; i > 0; i--)
+            {
+                accumulatedConstant *= _dimensions[i];
+                ColumnConsts[i-1] = accumulatedConstant;
+            }
         }
         
         
@@ -63,10 +66,17 @@ namespace NeuralNetwork
             InstantiateArray(dimensions);
         }
 
-        public int ValueOf(params int[] indexes)
+        public int ValueOf(params int[] indices)
         {
-            var idx = IndexOf(indexes);
+            var idx = IndexOf(indices);
             return InternalArray[idx];
+        }
+
+        public Matrix Add(int value, params int[] indices)
+        {
+            var idx = IndexOf(indices);
+            InternalArray[idx] = value;
+            return this;
         }
         
         public static Matrix operator +(Matrix c1, Matrix c2)
