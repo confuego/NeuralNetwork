@@ -1,92 +1,87 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace NeuralNetwork
 {
     public class Matrix
     {
-        // ReSharper disable once InconsistentNaming
-        private int[] _dimensions { get; set; }
+        public int Rows { get; set; }
         
-        public int[] Dimensions => _dimensions;
+        public int Columns { get; set; }
 
-        private int[] InternalArray { get; set; }
-        
-        private int[] ColumnConsts { get; set; }
+        public double[] InternalArray { get; set; }
 
-        private int IndexOf(IReadOnlyList<int> indices)
+        private int IndexOf(int row, int col)
         {
-            if (Dimensions.Length != indices.Count)
-                throw new IndexOutOfRangeException("Matrix dimensions do not match.");
-
-            // ReSharper disable once LoopCanBeConvertedToQuery
-            for (var i = 0; i < indices.Count; i++)
-            {
-                if (indices[i] < 0 || indices[i] > Dimensions[i] - 1)
-                {
-                    throw new IndexOutOfRangeException("Index must be one less than it's dimension and greater than 0.");
-                }
-            }
-
-            var internalIndex = 0;
-
-            // ReSharper disable once LoopCanBeConvertedToQuery
-            for (var i = 0; i < indices.Count; i++)
-            {
-                var idx = indices[i];
-                internalIndex += idx * ColumnConsts[i];
-
-            }
-
-            return internalIndex;
-
+            var idx = row * Columns + col;
+            if(idx < 0 || idx > InternalArray.Length) throw new IndexOutOfRangeException();
+            return idx;
         }
 
-        private void InstantiateArray(int[] dimensions)
+        private void InstantiateArray(int rows, int cols)
         {
-            _dimensions = dimensions;
-            
-            var cellCount = Dimensions.Aggregate(1, (current, t) => current * t);
-            InternalArray = new int[cellCount];
-            ColumnConsts = new int[_dimensions.Length];
-
-            var accumulatedConstant = 1;
-            ColumnConsts[_dimensions.Length - 1] = accumulatedConstant;
-            for (var i = _dimensions.Length - 1; i > 0; i--)
-            {
-                accumulatedConstant *= _dimensions[i];
-                ColumnConsts[i-1] = accumulatedConstant;
-            }
-        }
-        
-        
-        public Matrix(params int[] dimensions)
-        {
-            InstantiateArray(dimensions);
+            Rows = rows;
+            Columns = cols;
+            InternalArray = new double[rows * cols];
         }
 
-        public int ValueOf(params int[] indices)
+        public Matrix(IReadOnlyList<int[]> matrix)
         {
-            var idx = IndexOf(indices);
+            InstantiateArray(matrix.Count, matrix[0].Length);
+        }
+        
+        public Matrix(int rows, int columns)
+        {
+            InstantiateArray(rows, columns);
+        }
+
+        public double ValueOf(int row, int col)
+        {
+            var idx = IndexOf(row, col);
             return InternalArray[idx];
         }
 
-        public Matrix Add(int value, params int[] indices)
+        public Matrix Add(int row, int col, int value)
         {
-            var idx = IndexOf(indices);
+            var idx = IndexOf(row, col);
             InternalArray[idx] = value;
             return this;
         }
         
+        public double this[int row, int col]
+        {
+            get => ValueOf(row, col);
+            set => InternalArray[IndexOf(row, col)] = value;
+        }
+        
         public static Matrix operator +(Matrix c1, Matrix c2)
         {
-            return new Matrix(1,1);
+            if (c1.Rows != c2.Columns || c1.Columns != c2.Columns)
+                throw new InvalidOperationException("Cannot add different size matrices");
+
+            var cellCount = c1.Rows * c2.Columns;
+            
+            for (var i = 0; i < cellCount; i++)
+            {
+                c1.InternalArray[i] = c1.InternalArray[i] + c2.InternalArray[i];
+            }
+            
+            return c1;
         }
 
-        public static Matrix operator -(Matrix a, Matrix b)
+        public static Matrix operator -(Matrix c1, Matrix c2)
         {
-            return new Matrix(1, 1);
+            if (c1.Rows != c2.Columns || c1.Columns != c2.Columns)
+                throw new InvalidOperationException("Cannot add different size matrices");
+
+            var cellCount = c1.Rows * c2.Columns;
+            
+            for (var i = 0; i < cellCount; i++)
+            {
+                c1.InternalArray[i] = c1.InternalArray[i] - c2.InternalArray[i];
+            }
+            
+            return c1;
         }
 
         public static Matrix operator *(Matrix a, Matrix b)
@@ -97,6 +92,19 @@ namespace NeuralNetwork
         public static Matrix operator /(Matrix a, Matrix b)
         {
             return new Matrix(1, 1);
+        }
+
+        public override string ToString()
+        {
+            var result = string.Empty;
+            var cellCount = Rows * Columns;
+            for (var i = 0; i < cellCount; i++)
+            {
+                if (i % Columns == 0) result += Environment.NewLine;
+                result +=  " " + InternalArray[i];
+            }
+
+            return result;
         }
     }
 }
