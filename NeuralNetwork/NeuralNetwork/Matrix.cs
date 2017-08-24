@@ -24,11 +24,6 @@ namespace NeuralNetwork
             Columns = cols;
             InternalArray = new double[rows * cols];
         }
-
-        public Matrix(IReadOnlyList<int[]> matrix)
-        {
-            InstantiateArray(matrix.Count, matrix[0].Length);
-        }
         
         public Matrix(int rows, int columns)
         {
@@ -84,14 +79,18 @@ namespace NeuralNetwork
             return c1;
         }
 
+        
         public static Matrix operator *(Matrix a, Matrix b)
         {
-            return new Matrix(1, 1);
+            if(a.Columns != b.Rows) throw new InvalidOperationException("Columns of matrix a must match the Rows of matrix b.");
+            
+            var newMatrix = new Matrix(a.Rows,b.Columns);
+            return newMatrix;
         }
 
         public static Matrix operator /(Matrix a, Matrix b)
         {
-            return new Matrix(1, 1);
+            return new Matrix(1,1);
         }
 
         public override string ToString()
