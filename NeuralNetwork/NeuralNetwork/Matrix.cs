@@ -83,8 +83,42 @@ namespace NeuralNetwork
         public static Matrix operator *(Matrix a, Matrix b)
         {
             if(a.Columns != b.Rows) throw new InvalidOperationException("Columns of matrix a must match the Rows of matrix b.");
+
+            var sum = 0.0;
+            var newMatrix = new Matrix(a.Rows, b.Columns);
+            var totalCalculations = newMatrix.InternalArray.Length * a.Columns;
+            var cols = 0;
+            var rows = 0;
+            var columnCount = 0;
             
-            var newMatrix = new Matrix(a.Rows,b.Columns);
+            for (var i = 0; i < totalCalculations; i++)
+            {
+                if (i !=0 && i % a.Columns  == 0)
+                {
+                    //Console.WriteLine("Sum: " + sum);
+                    newMatrix.InternalArray[i / a.Columns - 1] = sum;
+                    sum = 0;
+                    cols = 0;
+                    columnCount++;
+                }
+                
+                if (i != 0 && i % (a.Columns * b.Columns) == 0)
+                {
+                    //Console.WriteLine("Row Change: " + i);
+                    rows++;
+                    columnCount = 0;
+                }
+                  
+                //Console.WriteLine(a.InternalArray[rows * a.Columns + cols] + " X " + b.InternalArray[cols * b.Columns + columnCount]);
+                
+                sum += a.InternalArray[rows * a.Columns + cols] * b.InternalArray[cols * b.Columns + columnCount];
+                cols++;
+
+
+            }
+
+            newMatrix.InternalArray[newMatrix.InternalArray.Length - 1] = sum;
+            
             return newMatrix;
         }
 
