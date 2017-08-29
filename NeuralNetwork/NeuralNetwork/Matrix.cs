@@ -122,11 +122,6 @@ namespace NeuralNetwork
             return newMatrix;
         }
 
-        public static Matrix operator /(Matrix a, Matrix b)
-        {
-            return new Matrix(1,1);
-        }
-
         public override string ToString()
         {
             var result = string.Empty;
