@@ -4,13 +4,13 @@ namespace NeuralNetwork
 {
     public class NetworkLayer
     {
-        public Matrix Vector { get; set; }
+        public Vector Neurons { get; set; }
         
         public Action<double> ActivationFunction { get; set; }
 
-        public NetworkLayer(Matrix vector, Action<double> activationFunction)
+        public NetworkLayer(Vector neurons, Action<double> activationFunction)
         {
-            Vector = vector;
+            Neurons = neurons;
             ActivationFunction = activationFunction;
         }
     }

@@ -8,7 +8,7 @@ namespace NeuralNetwork
         
         public int Columns { get; set; }
         
-        private double[] InternalArray { get; set; }
+        protected double[] InternalArray { get; set; }
 
         private void InstantiateArray(int rows, int cols)
         {
@@ -117,6 +117,21 @@ namespace NeuralNetwork
             newMatrix.InternalArray[newMatrix.InternalArray.Length - 1] = sum;
             
             return newMatrix;
+        }
+
+        public static Matrix From(double[][] data)
+        {
+            var matrix = new Matrix(data.Length, data[0].Length);
+
+            for (var i = 0; i < data.Length; i++)
+            {
+                for (var j = 0; j < data[i].Length; j++)
+                {
+                    matrix[i, j] = data[i][j];
+                }
+            }
+
+            return matrix;
         }
 
         public override string ToString()
