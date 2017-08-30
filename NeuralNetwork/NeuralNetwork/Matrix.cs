@@ -1,28 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace NeuralNetwork
 {
     public class Matrix
-    {
+    {   
         public int Rows { get; set; }
         
         public int Columns { get; set; }
-
-        public double[] InternalArray { get; set; }
-
-        private int IndexOf(int row, int col)
-        {
-            var idx = row * Columns + col;
-            if(idx < 0 || idx > InternalArray.Length) throw new IndexOutOfRangeException();
-            return idx;
-        }
+        
+        private double[] InternalArray { get; set; }
 
         private void InstantiateArray(int rows, int cols)
         {
             Rows = rows;
             Columns = cols;
             InternalArray = new double[rows * cols];
+        }
+
+        public int IndexOf(int row, int col)
+        {
+            var idx = row * Columns + col;
+            if(idx < 0 || idx > InternalArray.Length) throw new IndexOutOfRangeException();
+            return idx;
         }
         
         public Matrix(int rows, int columns)
@@ -34,13 +33,6 @@ namespace NeuralNetwork
         {
             var idx = IndexOf(row, col);
             return InternalArray[idx];
-        }
-
-        public Matrix Add(int row, int col, int value)
-        {
-            var idx = IndexOf(row, col);
-            InternalArray[idx] = value;
-            return this;
         }
         
         public double this[int row, int col]
@@ -79,6 +71,15 @@ namespace NeuralNetwork
             return c1;
         }
 
+        public static Matrix operator *(Matrix a, double constant)
+        {
+            for (var i = 0; i < a.InternalArray.Length; i++)
+            {
+                a.InternalArray[i] *= constant;
+            }
+            return a;
+        }
+        
         
         public static Matrix operator *(Matrix a, Matrix b)
         {
@@ -87,32 +88,28 @@ namespace NeuralNetwork
             var sum = 0.0;
             var newMatrix = new Matrix(a.Rows, b.Columns);
             var totalCalculations = newMatrix.InternalArray.Length * a.Columns;
-            var cols = 0;
+            var rowIncrement = 0;
             var rows = 0;
-            var columnCount = 0;
+            var columnIncrement = 0;
             
             for (var i = 0; i < totalCalculations; i++)
             {
                 if (i !=0 && i % a.Columns  == 0)
                 {
-                    //Console.WriteLine("Sum: " + sum);
                     newMatrix.InternalArray[i / a.Columns - 1] = sum;
                     sum = 0;
-                    cols = 0;
-                    columnCount++;
+                    rowIncrement = 0;
+                    columnIncrement++;
                 }
                 
                 if (i != 0 && i % (a.Columns * b.Columns) == 0)
                 {
-                    //Console.WriteLine("Row Change: " + i);
                     rows++;
-                    columnCount = 0;
+                    columnIncrement = 0;
                 }
-                  
-                //Console.WriteLine(a.InternalArray[rows * a.Columns + cols] + " X " + b.InternalArray[cols * b.Columns + columnCount]);
                 
-                sum += a.InternalArray[rows * a.Columns + cols] * b.InternalArray[cols * b.Columns + columnCount];
-                cols++;
+                sum += a.InternalArray[rows * a.Columns + rowIncrement] * b.InternalArray[rowIncrement * b.Columns + columnIncrement];
+                rowIncrement++;
 
 
             }
