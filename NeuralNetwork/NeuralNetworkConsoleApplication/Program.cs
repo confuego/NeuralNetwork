@@ -28,11 +28,6 @@ namespace NeuralNetworkConsoleApplication
                 neuralNetwork.FeedForward();
             }
             
-            foreach (var t in neuralNetwork.Layers)
-            {
-                Console.WriteLine(t.Neurons);
-            }
-            
             stopwatch.Stop();
             
             Console.WriteLine(stopwatch.ElapsedMilliseconds);

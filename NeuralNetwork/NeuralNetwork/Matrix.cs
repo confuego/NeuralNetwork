@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace NeuralNetwork
 {
@@ -26,7 +27,7 @@ namespace NeuralNetwork
         
         public Matrix(int rows, int columns)
         {
-            InstantiateArray(rows, columns);
+            InstantiateArray(rows, columns, data);
         }
 
         public double ValueOf(int row, int col)
@@ -35,12 +36,27 @@ namespace NeuralNetwork
             return InternalArray[idx];
         }
 
-        public static Matrix Multiply(Matrix a, Matrix b)
+        public static Matrix Seed(int row, int col)
+        {
+            var random = new Random();
+            var matrix = new Matrix(row, col);
+
+            for (var i = 0; i < matrix.InternalArray.Length; i++)
+            {
+                matrix.InternalArray[i] = random.NextDouble();
+            }
+        }
+
+        public static Matrix Multiply(Matrix a, Matrix b, Matrix c = null)
         {
             if(a.Columns != b.Rows) throw new InvalidOperationException("Columns of matrix a must match the Rows of matrix b.");
 
             var sum = 0.0;
-            var newMatrix = new Matrix(a.Rows, b.Columns);
+            var newMatrix = c ?? new Matrix(a.Rows, b.Columns);
+
+            if (newMatrix.Rows != a.Rows || newMatrix.Columns != b.Columns)
+                throw new InvalidOperationException("Destination matrix must be sized properly.");
+            
             var totalCalculations = newMatrix.InternalArray.Length * a.Columns;
             var rowIncrement = 0;
             var rows = 0;
@@ -73,62 +89,68 @@ namespace NeuralNetwork
             return newMatrix;
         }
 
-        public static Matrix Multiply(Matrix a, double constant)
+        public static Matrix Multiply(Matrix a, double constant, Matrix b = null)
         {
+            var newMatrix = b ?? new Matrix(a.Rows, a.Columns); 
             for (var i = 0; i < a.InternalArray.Length; i++)
             {
-                a.InternalArray[i] *= constant;
+                newMatrix.InternalArray[i] *= constant;
             }
-            return a;
+            return newMatrix;
         }
 
-        public static Matrix Add(Matrix c1, Matrix c2)
+        public static double[] Multiply(Matrix a, double[] vector, double[] storage = null)
+        {
+            var resultVector = storage ?? new double[a.Columns];
+            
+            if(resultVector.Length != a.Columns) throw new InvalidDataException("Resultant vector must be the same size as the columns in the matrix.");
+
+            for (var i = 0; i < resultVector.Length; i++)
+            {
+                resultVector[i] = 
+            }
+        }
+
+        public static Matrix Add(Matrix c1, Matrix c2, Matrix c3 = null)
         {
             if (c1.Rows != c2.Columns || c1.Columns != c2.Columns)
                 throw new InvalidOperationException("Cannot add different size matrices");
 
+
+            var newMatrix = c3 ?? new Matrix(c1.Rows, c1.Columns);
+            
+            if (newMatrix.Rows != c2.Columns || newMatrix.Columns != c2.Columns)
+                throw new InvalidOperationException("Provided matrix to store addition must be the same size as the operands.");
+            
             var cellCount = c1.Rows * c2.Columns;
             
             for (var i = 0; i < cellCount; i++)
             {
-                c1.InternalArray[i] = c1.InternalArray[i] + c2.InternalArray[i];
+                newMatrix.InternalArray[i] = c1.InternalArray[i] + c2.InternalArray[i];
             }
             
-            return c1;
+            return newMatrix;
         }
 
-        public static Matrix Add(Matrix c1, double constant)
-        {
-            for (var i = 0; i < c1.InternalArray.Length; i++)
-            {
-                c1.InternalArray[i] += constant;
-            }
-            return c1;
-        }
-
-        public static Matrix Subtract(Matrix c1, Matrix c2)
+        public static Matrix Subtract(Matrix c1, Matrix c2, Matrix c3 = null)
         {
             if (c1.Rows != c2.Columns || c1.Columns != c2.Columns)
                 throw new InvalidOperationException("Cannot add different size matrices");
 
+            
+            var newMatrix = c3 ?? new Matrix(c1.Rows, c1.Columns);
+            
+            if (newMatrix.Rows != c2.Columns || newMatrix.Columns != c2.Columns)
+                throw new InvalidOperationException("Provided matrix to store addition must be the same size as the operands.");
+            
             var cellCount = c1.Rows * c2.Columns;
             
             for (var i = 0; i < cellCount; i++)
             {
-                c1.InternalArray[i] = c1.InternalArray[i] - c2.InternalArray[i];
+                newMatrix.InternalArray[i] = c1.InternalArray[i] - c2.InternalArray[i];
             }
             
-            return c1;
-        }
-
-        public static Vector ToVector(Matrix a)
-        {
-            return Vector.From(a.InternalArray);
-        }
-
-        public Vector ToVector()
-        {
-            return ToVector(this);
+            return newMatrix;
         }
         
         public double this[int row, int col]
@@ -142,11 +164,6 @@ namespace NeuralNetwork
             return Add(c1, c2);
         }
 
-        public static Matrix operator +(Matrix c1, double constant)
-        {
-            return Add(c1, constant);
-        }
-
         public static Matrix operator -(Matrix c1, Matrix c2)
         {
             return Subtract(c1, c2);
@@ -156,8 +173,7 @@ namespace NeuralNetwork
         {
             return Multiply(a, constant);
         }
-        
-        
+            
         public static Matrix operator *(Matrix a, Matrix b)
         {
             return Multiply(a, b);

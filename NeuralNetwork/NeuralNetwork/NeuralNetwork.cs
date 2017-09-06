@@ -1,30 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace NeuralNetwork
 {
     public class NeuralNetwork
     {
-        
-        protected int InputLayerIndex { get; set; }
-        
+                
         protected int OutputLayerIndex { get; set; }
         
         public Layer[] Layers { get; set; }
 
         public void FeedForward()
         {
-            var currentLayer = Layers[InputLayerIndex];
-            for (var i = 0; i < Layers.Length - 1; i++)
-            {
-                var nextLayer = Layers[i + 1];
-                nextLayer.Neurons =
-                    (currentLayer.Neurons * nextLayer.Weights + currentLayer.Bias).ToVector()
-                    .Apply(currentLayer.ActivationFunction);
-                currentLayer = nextLayer;
 
+            var currentLayer = Layers[0];
+            var nextLayer = Layers[1];
+            
+            for (var i = 0; i < Layers.Length; i++)
+            {
+                nextLayer.Neurons = currentLayer.Neurons * currentLayer.Weights 
             }
+            
         }
 
         public void BackPropagate()
@@ -35,22 +33,18 @@ namespace NeuralNetwork
         
         public NeuralNetwork(params Layer[] layers)
         {
-            if (layers == null || layers.Length < 2)
-                throw new FormatException("A Neural Network requires an input layer and an output layer.");
+            if(layers.Length < 2) throw new InvalidDataException("A neural network must have at least two layers.");
 
-            InputLayerIndex = 0;
-            OutputLayerIndex = layers.Length - 1;
-            Layers = layers.ToArray();
+            Layers = layers;
+            OutputLayerIndex = Layers.Length - 1;
+
+            for (var i = 1; i < Layers.Length; i++)
+            {
+                Layers[i - 1].Weights = Matrix.Seed(Layers[i - 1].Neurons.Length, Layers[i].Neurons.Length);
+            }
+            
         }
         
         
-    }
-
-    public static class NeuralNetworkFactory
-    {
-        public static T Create<T>(params object[] constructor) where T : NeuralNetwork
-        {
-            return (T) Activator.CreateInstance(typeof(T), constructor);
-        }
     }
 }

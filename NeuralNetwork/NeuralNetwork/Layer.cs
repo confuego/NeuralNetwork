@@ -4,20 +4,22 @@ namespace NeuralNetwork
 {
     public class Layer
     {
-        public Vector Neurons { get; set; }
+        private Func<double, double> _activationFunction;
+
+        public double[] Neurons { get; set; }
         
         public Matrix Weights { get; set; }
         
-        public Func<double,double> ActivationFunction { get; set; }
+        public Func<double,double> ActivationFunction {
+            get => _activationFunction ?? global::NeuralNetwork.ActivationFunction.TanH;
+            set => _activationFunction = value;
+        }
         
-        public double Bias { get; set; }
+        public double Bias { get; set; } = 0.125;
 
-        public Layer(Vector neurons, Matrix weights, Func<double,double> activationFunction, double bias)
+        public Layer(int neuronCount)
         {
-            Weights = weights;
-            Neurons = neurons;
-            ActivationFunction = activationFunction;
-            Bias = bias;
+            Neurons = new double[neuronCount];
         }
     }
 }
