@@ -34,54 +34,8 @@ namespace NeuralNetwork
             var idx = IndexOf(row, col);
             return InternalArray[idx];
         }
-        
-        public double this[int row, int col]
-        {
-            get => ValueOf(row, col);
-            set => InternalArray[IndexOf(row, col)] = value;
-        }
-        
-        public static Matrix operator +(Matrix c1, Matrix c2)
-        {
-            if (c1.Rows != c2.Columns || c1.Columns != c2.Columns)
-                throw new InvalidOperationException("Cannot add different size matrices");
 
-            var cellCount = c1.Rows * c2.Columns;
-            
-            for (var i = 0; i < cellCount; i++)
-            {
-                c1.InternalArray[i] = c1.InternalArray[i] + c2.InternalArray[i];
-            }
-            
-            return c1;
-        }
-
-        public static Matrix operator -(Matrix c1, Matrix c2)
-        {
-            if (c1.Rows != c2.Columns || c1.Columns != c2.Columns)
-                throw new InvalidOperationException("Cannot add different size matrices");
-
-            var cellCount = c1.Rows * c2.Columns;
-            
-            for (var i = 0; i < cellCount; i++)
-            {
-                c1.InternalArray[i] = c1.InternalArray[i] - c2.InternalArray[i];
-            }
-            
-            return c1;
-        }
-
-        public static Matrix operator *(Matrix a, double constant)
-        {
-            for (var i = 0; i < a.InternalArray.Length; i++)
-            {
-                a.InternalArray[i] *= constant;
-            }
-            return a;
-        }
-        
-        
-        public static Matrix operator *(Matrix a, Matrix b)
+        public static Matrix Multiply(Matrix a, Matrix b)
         {
             if(a.Columns != b.Rows) throw new InvalidOperationException("Columns of matrix a must match the Rows of matrix b.");
 
@@ -117,6 +71,96 @@ namespace NeuralNetwork
             newMatrix.InternalArray[newMatrix.InternalArray.Length - 1] = sum;
             
             return newMatrix;
+        }
+
+        public static Matrix Multiply(Matrix a, double constant)
+        {
+            for (var i = 0; i < a.InternalArray.Length; i++)
+            {
+                a.InternalArray[i] *= constant;
+            }
+            return a;
+        }
+
+        public static Matrix Add(Matrix c1, Matrix c2)
+        {
+            if (c1.Rows != c2.Columns || c1.Columns != c2.Columns)
+                throw new InvalidOperationException("Cannot add different size matrices");
+
+            var cellCount = c1.Rows * c2.Columns;
+            
+            for (var i = 0; i < cellCount; i++)
+            {
+                c1.InternalArray[i] = c1.InternalArray[i] + c2.InternalArray[i];
+            }
+            
+            return c1;
+        }
+
+        public static Matrix Add(Matrix c1, double constant)
+        {
+            for (var i = 0; i < c1.InternalArray.Length; i++)
+            {
+                c1.InternalArray[i] += constant;
+            }
+            return c1;
+        }
+
+        public static Matrix Subtract(Matrix c1, Matrix c2)
+        {
+            if (c1.Rows != c2.Columns || c1.Columns != c2.Columns)
+                throw new InvalidOperationException("Cannot add different size matrices");
+
+            var cellCount = c1.Rows * c2.Columns;
+            
+            for (var i = 0; i < cellCount; i++)
+            {
+                c1.InternalArray[i] = c1.InternalArray[i] - c2.InternalArray[i];
+            }
+            
+            return c1;
+        }
+
+        public static Vector ToVector(Matrix a)
+        {
+            return Vector.From(a.InternalArray);
+        }
+
+        public Vector ToVector()
+        {
+            return ToVector(this);
+        }
+        
+        public double this[int row, int col]
+        {
+            get => ValueOf(row, col);
+            set => InternalArray[IndexOf(row, col)] = value;
+        }
+        
+        public static Matrix operator +(Matrix c1, Matrix c2)
+        {
+            return Add(c1, c2);
+        }
+
+        public static Matrix operator +(Matrix c1, double constant)
+        {
+            return Add(c1, constant);
+        }
+
+        public static Matrix operator -(Matrix c1, Matrix c2)
+        {
+            return Subtract(c1, c2);
+        }
+
+        public static Matrix operator *(Matrix a, double constant)
+        {
+            return Multiply(a, constant);
+        }
+        
+        
+        public static Matrix operator *(Matrix a, Matrix b)
+        {
+            return Multiply(a, b);
         }
 
         public static Matrix From(double[][] data)

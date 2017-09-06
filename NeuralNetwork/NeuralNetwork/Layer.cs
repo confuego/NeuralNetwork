@@ -8,15 +8,16 @@ namespace NeuralNetwork
         
         public Matrix Weights { get; set; }
         
-        public Action<double> ActivationFunction { get; set; }
+        public Func<double,double> ActivationFunction { get; set; }
         
         public double Bias { get; set; }
 
-        public Layer(Vector neurons, Matrix weights, Action<double> activationFunction)
+        public Layer(Vector neurons, Matrix weights, Func<double,double> activationFunction, double bias)
         {
             Weights = weights;
             Neurons = neurons;
             ActivationFunction = activationFunction;
+            Bias = bias;
         }
     }
 }
