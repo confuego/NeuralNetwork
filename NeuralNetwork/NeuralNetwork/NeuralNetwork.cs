@@ -6,21 +6,20 @@ using System.Linq;
 namespace NeuralNetwork
 {
     public class NeuralNetwork
-    {
-                
-        protected int OutputLayerIndex { get; set; }
-        
+    {        
         public Layer[] Layers { get; set; }
 
         public void FeedForward()
-        {
-
+        {            
             var currentLayer = Layers[0];
-            var nextLayer = Layers[1];
-            
-            for (var i = 0; i < Layers.Length; i++)
+
+            for (var i = 0; i < Layers.Length - 1; i++)
             {
-                nextLayer.Neurons = currentLayer.Neurons * currentLayer.Weights 
+                var nextLayer = Layers[i + 1];
+                nextLayer.Neurons = Matrix.Multiply(currentLayer.Neurons, currentLayer.Weights, nextLayer.Neurons,
+                    cell => currentLayer.ActivationFunction(cell) + currentLayer.Bias);
+                
+                currentLayer = nextLayer;
             }
             
         }
@@ -29,20 +28,24 @@ namespace NeuralNetwork
         {
             
         }
-        
-        
-        public NeuralNetwork(params Layer[] layers)
+
+        public NeuralNetwork(params int[] neuronCounts)
         {
-            if(layers.Length < 2) throw new InvalidDataException("A neural network must have at least two layers.");
+            if(neuronCounts.Length < 2) throw new InvalidDataException("A neural network must have at least two layers.");
 
-            Layers = layers;
-            OutputLayerIndex = Layers.Length - 1;
-
-            for (var i = 1; i < Layers.Length; i++)
+            Layers = new Layer[neuronCounts.Length];
+            
+            for (var i = 1; i < neuronCounts.Length; i++)
             {
-                Layers[i - 1].Weights = Matrix.Seed(Layers[i - 1].Neurons.Length, Layers[i].Neurons.Length);
+                var weights = Matrix.Seed(neuronCounts[i - 1], neuronCounts[i]);
+                Layers[i - 1] =
+                    new Layer(neuronCounts[i - 1])
+                    {
+                        Weights = weights
+                    };
             }
             
+            Layers[Layers.Length - 1] = new Layer(neuronCounts[neuronCounts.Length - 1]);
         }
         
         

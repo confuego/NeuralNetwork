@@ -27,7 +27,7 @@ namespace NeuralNetwork
         
         public Matrix(int rows, int columns)
         {
-            InstantiateArray(rows, columns, data);
+            InstantiateArray(rows, columns);
         }
 
         public double ValueOf(int row, int col)
@@ -45,48 +45,20 @@ namespace NeuralNetwork
             {
                 matrix.InternalArray[i] = random.NextDouble();
             }
+            return matrix;
         }
 
         public static Matrix Multiply(Matrix a, Matrix b, Matrix c = null)
         {
+
             if(a.Columns != b.Rows) throw new InvalidOperationException("Columns of matrix a must match the Rows of matrix b.");
-
-            var sum = 0.0;
-            var newMatrix = c ?? new Matrix(a.Rows, b.Columns);
-
-            if (newMatrix.Rows != a.Rows || newMatrix.Columns != b.Columns)
-                throw new InvalidOperationException("Destination matrix must be sized properly.");
             
-            var totalCalculations = newMatrix.InternalArray.Length * a.Columns;
-            var rowIncrement = 0;
-            var rows = 0;
-            var columnIncrement = 0;
+            c = c ?? new Matrix(a.Rows, b.Columns);
             
-            for (var i = 0; i < totalCalculations; i++)
-            {
-                if (i !=0 && i % a.Columns  == 0)
-                {
-                    newMatrix.InternalArray[i / a.Columns - 1] = sum;
-                    sum = 0;
-                    rowIncrement = 0;
-                    columnIncrement++;
-                }
-                
-                if (i != 0 && i % (a.Columns * b.Columns) == 0)
-                {
-                    rows++;
-                    columnIncrement = 0;
-                }
-                
-                sum += a.InternalArray[rows * a.Columns + rowIncrement] * b.InternalArray[rowIncrement * b.Columns + columnIncrement];
-                rowIncrement++;
+            c.InternalArray = NeuralNetworkHelper.Multiply(a.InternalArray, a.Rows, a.Columns, b.InternalArray, b.Rows, b.Columns,
+                c.InternalArray);
 
-
-            }
-
-            newMatrix.InternalArray[newMatrix.InternalArray.Length - 1] = sum;
-            
-            return newMatrix;
+            return c;
         }
 
         public static Matrix Multiply(Matrix a, double constant, Matrix b = null)
@@ -99,16 +71,13 @@ namespace NeuralNetwork
             return newMatrix;
         }
 
-        public static double[] Multiply(Matrix a, double[] vector, double[] storage = null)
+        public static double[] Multiply(double[] vector, Matrix a, double[] storage = null, Func<double, double> onCellCreation = null)
         {
-            var resultVector = storage ?? new double[a.Columns];
+            storage = storage ?? new double[a.Columns];
             
-            if(resultVector.Length != a.Columns) throw new InvalidDataException("Resultant vector must be the same size as the columns in the matrix.");
+            if(storage.Length != a.Columns) throw new InvalidDataException("Resultant vector must be the same size as the columns in the matrix.");
 
-            for (var i = 0; i < resultVector.Length; i++)
-            {
-                resultVector[i] = 
-            }
+            return NeuralNetworkHelper.Multiply(vector, 1, vector.Length, a.InternalArray, a.Rows, a.Columns, storage, onCellCreation);
         }
 
         public static Matrix Add(Matrix c1, Matrix c2, Matrix c3 = null)
@@ -117,19 +86,19 @@ namespace NeuralNetwork
                 throw new InvalidOperationException("Cannot add different size matrices");
 
 
-            var newMatrix = c3 ?? new Matrix(c1.Rows, c1.Columns);
+            c3 = c3 ?? new Matrix(c1.Rows, c1.Columns);
             
-            if (newMatrix.Rows != c2.Columns || newMatrix.Columns != c2.Columns)
+            if (c3.Rows != c2.Columns || c3.Columns != c2.Columns)
                 throw new InvalidOperationException("Provided matrix to store addition must be the same size as the operands.");
             
             var cellCount = c1.Rows * c2.Columns;
             
             for (var i = 0; i < cellCount; i++)
             {
-                newMatrix.InternalArray[i] = c1.InternalArray[i] + c2.InternalArray[i];
+                c3.InternalArray[i] = c1.InternalArray[i] + c2.InternalArray[i];
             }
             
-            return newMatrix;
+            return c3;
         }
 
         public static Matrix Subtract(Matrix c1, Matrix c2, Matrix c3 = null)
@@ -173,25 +142,20 @@ namespace NeuralNetwork
         {
             return Multiply(a, constant);
         }
+        
+        public static Matrix operator *(double constant, Matrix a)
+        {
+            return Multiply(a, constant);
+        }
             
         public static Matrix operator *(Matrix a, Matrix b)
         {
             return Multiply(a, b);
         }
-
-        public static Matrix From(double[][] data)
+        
+        public static double[] operator *(double[] vector, Matrix a)
         {
-            var matrix = new Matrix(data.Length, data[0].Length);
-
-            for (var i = 0; i < data.Length; i++)
-            {
-                for (var j = 0; j < data[i].Length; j++)
-                {
-                    matrix[i, j] = data[i][j];
-                }
-            }
-
-            return matrix;
+            return Multiply(vector, a);
         }
 
         public override string ToString()
