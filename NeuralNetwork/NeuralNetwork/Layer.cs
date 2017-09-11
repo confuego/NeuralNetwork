@@ -6,9 +6,7 @@ namespace NeuralNetwork
     {
         private Func<double, double> _activationFunction;
 
-        public double[] Neurons { get; set; }
-        
-        public Matrix Weights { get; set; }
+        public double[] Neurons;
         
         public Func<double,double> ActivationFunction {
             get => _activationFunction ?? global::NeuralNetwork.ActivationFunction.TanH;
