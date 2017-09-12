@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 
 namespace NeuralNetwork
 {
@@ -21,14 +18,18 @@ namespace NeuralNetwork
 
         public void FeedForward()
         {
-
             for (var i = 0; i < Layers.Length - 1; i++)
             {
-                Matrix.Multiply(Layers[i].Neurons, Weights[i], ref Layers[i + 1].Neurons);
-                var currentLayer = Layers[i + 1];
-                for (var j = 0; j < Layers[i + 1].Neurons.Length; j++)
+                var currentLayer = Layers[i];
+                var currentNeurons = currentLayer.Neurons;
+                var nextLayer = Layers[i + 1];
+                var nextNeurons = nextLayer.Neurons;
+                var func = currentLayer.ActivationFunction;
+                
+                Matrix.Multiply(currentNeurons, Weights[i], ref nextNeurons);
+                for (var j = 0; j < currentNeurons.Length; j++)
                 {
-                    currentLayer.Neurons[j] = Layers[i + 1].ActivationFunction(currentLayer.Neurons[i]) + currentLayer.Bias;
+                    nextNeurons[j] = func(nextNeurons[j]) + nextLayer.Bias;
                 }
             }
             
