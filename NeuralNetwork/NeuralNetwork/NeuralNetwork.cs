@@ -26,7 +26,7 @@ namespace NeuralNetwork
                 var nextNeurons = nextLayer.Neurons;
                 var func = currentLayer.ActivationFunction;
                 
-                Matrix.Multiply(currentNeurons, Weights[i], ref nextNeurons);
+                Matrix.Multiply(currentNeurons, Weights[i], nextNeurons);
                 for (var j = 0; j < currentNeurons.Length; j++)
                 {
                     nextNeurons[j] = func(nextNeurons[j]) + nextLayer.Bias;
