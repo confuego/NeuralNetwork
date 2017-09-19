@@ -24,7 +24,7 @@ namespace NeuralNetwork
                 var currentNeurons = currentLayer.Neurons;
                 var nextLayer = Layers[i + 1];
                 var nextNeurons = nextLayer.Neurons;
-                var func = currentLayer.ActivationFunction;
+                var func = currentLayer.ActivationFunction.Base;
                 
                 Matrix.Multiply(currentNeurons, Weights[i], nextNeurons);
                 for (var j = 0; j < currentNeurons.Length; j++)
@@ -35,7 +35,7 @@ namespace NeuralNetwork
             
         }
 
-        public void BackPropagate()
+        public void BackPropagate(double[] target, double learningRate = 0.05)
         {
             
         }

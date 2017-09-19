@@ -33,7 +33,7 @@ namespace NeuralNetworkConsoleApplication
 			
 			stopwatch.Stop();
 			Console.WriteLine(stopwatch.ElapsedMilliseconds);
-			Thread.Sleep(5000);
+			//Thread.Sleep(5000);
 		}
 	}
 }
