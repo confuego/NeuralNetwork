@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Runtime;
 
 namespace NeuralNetwork
 {
@@ -7,6 +9,8 @@ namespace NeuralNetwork
         public Layer[] Layers { get; set; }
         
         public Matrix[] Weights { get; set; }
+
+        public Func<double, double, double> ErrorFunc { get; set; } = (tar, output) => tar - output;
 
         public double[] Input
         {
@@ -35,6 +39,11 @@ namespace NeuralNetwork
             
         }
 
+        // Alogorithm:
+        // 1. During Feed Forward, populate the input buffer 
+        //    with the previous layers neurons times the weights 
+        //    and the output buffer with the input buffer with the activation function applied to it.
+        // 2. Caclulate the error of all the output neurons using the error function
         public void BackPropagate(double[] target, double learningRate = 0.05)
         {
             

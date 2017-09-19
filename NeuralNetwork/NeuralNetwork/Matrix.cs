@@ -82,53 +82,6 @@ namespace NeuralNetwork
 			}
 		}
 
-		/*public static void Multiply(Matrix a, Matrix b, Matrix c)
-		{
-			double[] firstMatrix = a.InternalArray;
-			double[] secondMatrix = b.InternalArray;
-			double[] result = c.InternalArray;
-
-			int col = a.Columns, row = a.Rows,
-				col2 = b.Columns, row2 = b.Rows;
-
-			int totalCalculations = result.Length * col,
-				rowIncrement = 0,
-				rows = 0,
-				columnIncrement = 0,
-				rowResetCount = col * col2,
-				rowsCol = 0;
-
-			double sum = 0.0;
-
-			if (a.Columns != b.Rows)
-				throw new InvalidOperationException("Columns of matrix a must match the Rows of matrix b.");
-			
-			for (int i = 0; i < totalCalculations; i++)
-			{
-				if (i != 0)
-				{
-					if (i % col == 0)
-					{
-						result[i / col - 1] = sum;
-						sum = 0;
-						rowIncrement = 0;
-						columnIncrement++;
-					}
-					if (i % rowResetCount == 0)
-					{
-						rows++;
-						rowsCol = rows * col;
-						columnIncrement = 0;
-					}
-				}
-
-				sum += firstMatrix[rowsCol + rowIncrement] * secondMatrix[rowIncrement * col2 + columnIncrement];
-				rowIncrement++;
-			}
-
-			result[result.Length - 1] = sum;
-		}*/
-
 		public static void Multiply(Matrix a, double constant, ref Matrix b)
 		{
 			for (var i = 0; i < a.InternalArray.Length; i++)
