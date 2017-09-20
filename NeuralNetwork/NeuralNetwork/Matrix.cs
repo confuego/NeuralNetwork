@@ -46,27 +46,31 @@ namespace NeuralNetwork
 			return matrix;
 		}
 
-		public static void Multiply(Matrix left, Matrix right, Matrix result)
+		private static void Multiply(double[] left,int leftRows, int leftColumns, double[] right, int rightRows, int rightColumns, ref double[] result)
 		{
-			int dstW = result.Columns,
-				dstH = result.Rows,
-				dotLen = left.Columns,
+			int dstW = rightColumns,
+				dstH = leftRows,
+				dotLen = leftColumns,
+				// ReSharper disable once TooWideLocalVariableScope
+				// The generated assembly is much better with variables declared at highest scope of function
 				i, j, k;
 			
-			double[] a0 = left.InternalArray;
-			double[] b0 = right.InternalArray;
-			double[] c0 = result.InternalArray;
+			var a0 = left;
+			var b0 = right;
+			var c0 = result;
 
 			int a = 0,
 				b = 0,
 				c = -1;
 
+			// ReSharper disable once TooWideLocalVariableScope
+			// The generated assembly is much better with variables declared at highest scope of function
 			double dp;
 
-			if (dstH != left.Rows || dstW != right.Columns)
+			if (dstH != leftRows || dstW != rightColumns)
 				throw new Exception("Destination matrix is not properly allocated.");
 
-			if (dotLen != right.Rows)
+			if (dotLen != rightRows)
 				throw new Exception("Operand matrix is not properly allocated.");
 
 			for (i = 0; i < dstH; ++i) {
@@ -90,11 +94,14 @@ namespace NeuralNetwork
 			}
 		}
 
-		public static void Multiply(double[] vector, Matrix a, double[] storage)
-		{   
-			if (storage.Length != a.Columns) throw new InvalidDataException("Resultant vector must be the same size as the columns in the matrix.");
+		public static void Multiply(Matrix left, Matrix right, ref Matrix result)
+		{
+			Multiply(left.InternalArray, left.Rows, left.Columns, right.InternalArray, right.Rows, right.Columns, ref result.InternalArray);
+		}
 
-			NeuralNetworkHelper.Multiply(vector, 1, vector.Length, a.InternalArray, a.Rows, a.Columns, storage);
+		public static void Multiply(double[] vector, Matrix a, ref double[] result)
+		{
+			Multiply(vector, 1, vector.Length, a.InternalArray, a.Rows, a.Columns, ref result);		
 		}
 
 		public static void Add(Matrix c1, Matrix c2, ref Matrix c3)
@@ -166,15 +173,15 @@ namespace NeuralNetwork
 		public static Matrix operator *(Matrix a, Matrix b)
 		{
 			var matrix = new Matrix(a.Rows, b.Columns);
-			Multiply(a, b, matrix);
+			Multiply(a.InternalArray,a.Rows, a.Columns, b.InternalArray, b.Rows, b.Columns, ref matrix.InternalArray);
 			return matrix;
 		}
         
-		public static double[] operator *(double[] vector, Matrix a)
+		public static Matrix operator *(double[] vector, Matrix a)
 		{
-			var resultantVector = new double[a.Columns];
-			Multiply(vector, a, resultantVector);
-			return resultantVector;
+			var resultMatrix = new Matrix(1, a.Columns);		
+			Multiply(vector, a, ref resultMatrix.InternalArray);
+			return resultMatrix;
 		}
 
 		public override string ToString()
